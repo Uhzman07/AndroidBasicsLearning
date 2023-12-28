@@ -2,6 +2,7 @@ package com.example.androidbasicslearning
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
@@ -18,6 +19,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_main)
+
+
+        Log.d("Usman",findViewById<Button>(R.id.btnOpenMenu).text.toString() )
 
         // This is to register the button for the menu
         registerForContextMenu(findViewById<Button>(R.id.btnOpenMenu))
