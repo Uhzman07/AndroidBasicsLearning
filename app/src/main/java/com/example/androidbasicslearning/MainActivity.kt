@@ -2,33 +2,53 @@ package com.example.androidbasicslearning
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.ContextMenu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+//import kotlinx.android.synthetic.main.activity_main.btnOpenMenu
 
 /**
- * AIM
- * How to add a Floating Action Button to a Bottom Navigation
- * Note that the Coordinator layout in the activity_main.xml file is perfect for the floating action button
- * It allows the floating action button to stick to the menu bar
- * It is therefore, better than the constraint layout
- * Note that for an AppCompatActivity, you should use the onCreate method without PersistableBundle:
+ * Opening a Floating bar menu in Android
  */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        // This is to register the button for the menu
+        registerForContextMenu(findViewById<Button>(R.id.btnOpenMenu))
 
-        Toast.makeText(this,"usman",Toast.LENGTH_LONG).show()
 
-        // In order to remove the shade of background in the bottom navigation view
-        findViewById<BottomNavigationView>(R.id.bottomNavigationView).background = null
+    }
 
-        // To disable the middle item from clicking
-        findViewById<BottomNavigationView>(R.id.bottomNavigationView).menu.getItem(2).isEnabled = false
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
 
+        // The menuInflater is a tool that takes the floating_context_menu and puts it in a format that we can actually insert in our app
+        menuInflater.inflate(R.menu.floating_context_menu, menu)
+    }
+
+
+    /**
+     * This method is used to define an action when the menu item is clicked
+     */
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.item1 -> Toast.makeText(this,"Item 1", Toast.LENGTH_LONG).show()
+            R.id.item2 -> Toast.makeText(this,"Item 2", Toast.LENGTH_LONG).show()
+            R.id.item3 -> Toast.makeText(this,"Item 3", Toast.LENGTH_LONG).show()
+            R.id.item4 -> Toast.makeText(this,"Item 4", Toast.LENGTH_LONG).show()
+
+        }
+        return super.onContextItemSelected(item)
     }
 }
